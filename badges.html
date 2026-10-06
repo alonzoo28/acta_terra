@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Badges Collection | ActaTerra</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .logo a {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1.1;
+            text-decoration: none;
+            color: inherit;
+        }
+        .logo .brand-title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            color: #000000;
+        }
+        .logo .brand-subtitle {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #333333;
+            margin-top: 2px;
+        }
+
+        .badges-wrapper {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .badges-header-card {
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.02);
+        }
+        .badges-header-card h2 {
+            margin: 0 0 5px 0;
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .badges-header-card p {
+            margin: 0 0 20px 0;
+            font-size: 0.95rem;
+            color: #555;
+        }
+        .global-badge-progress-bar {
+            background: #e0e0e0;
+            border: 2px solid #000000;
+            height: 16px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .global-badge-progress-bar .fill-bar {
+            background: #a8e6cf; 
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease-out;
+        }
+        .counter-status-text {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #000000;
+        }
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+        .badge-card {
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            opacity: 0.35;
+            filter: grayscale(100%);
+            position: relative;
+        }
+        .badge-card.unlocked {
+            opacity: 1 !important;
+            filter: grayscale(0%) !important;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+            background: #ffffff;
+        }
+        .badge-image-frame {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+        }
+        .badge-image-frame img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .badge-card h4 {
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #000000;
+        }
+        .badge-card p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 600;
+        }
+        .lock-status-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            background: #f0f0f0;
+            border: 1.5px solid #000000;
+            padding: 4px 12px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+        .badge-card.unlocked .lock-status-tag {
+            background: #e2fbd7;
+            color: #34a853;
+            border-color: #34a853;
+        }
+        .controls-row {
+            margin-top: 20px;
+        }
+        .btn-return {
+            display: inline-block;
+            text-decoration: none;
+            padding: 12px 28px;
+            border: 2px solid #000000;
+            border-radius: 25px;
+            color: #000000;
+            font-weight: bold;
+            font-size: 0.95rem;
+            background: #ffffff;
+            transition: background 0.2s;
+        }
+        .btn-return:hover {
+            background: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <span class="brand-title">ACTATERRA</span>
+                <span class="brand-subtitle">Climate Action</span>
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="tasks.html?cat=random">Tasks</a></li>
+                <li><a href="badges.html" class="active">Progress</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="sdg13.html" class="sdg-nav">SDG13</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="badges-wrapper">
+        <section class="badges-header-card">
+            <h2>Badges Collection</h2>
+            <p>Keep acting to unlock all achievements!</p>
+            <div class="global-badge-progress-bar">
+                <div class="fill-bar" id="completion-progress-fill"></div>
+            </div>
+            <div class="counter-status-text" id="completion-counter-label">0/5 Badges Unlocked</div>
+        </section>
+
+        <section class="badges-grid">
+            <div class="badge-card" id="badge-air">
+                <div class="badge-image-frame">
+                    <img src="air-icon.png" alt="Air Helper">
+                </div>
+                <h4>Air Helper</h4>
+                <p>Complete 1 Air task</p>
+                <div class="lock-status-tag" id="lock-tag-air">🔒 Locked</div>
+            </div>
+
+            <div class="badge-card" id="badge-energy">
+                <div class="badge-image-frame">
+                    <img src="energy-icon.png" alt="Energy Saver">
+                </div>
+                <h4>Energy Saver</h4>
+                <p>Complete 1 Energy task</p>
+                <div class="lock-status-tag" id="lock-tag-energy">🔒 Locked</div>
+            </div>
+
+            <div class="badge-card" id="badge-nature">
+                <div class="badge-image-frame">
+                    <img src="nature-icon.png" alt="Bio Defender">
+                </div>
+                <h4>Bio Defender</h4>
+                <p>Complete 1 Nature task</p>
+                <div class="lock-status-tag" id="lock-tag-nature">🔒 Locked</div>
+            </div>
+
+            <div class="badge-card" id="badge-water">
+                <div class="badge-image-frame">
+                    <img src="water-icon.png" alt="Water Guardian">
+                </div>
+                <h4>Water Guardian</h4>
+                <p>Complete 1 Water task</p>
+                <div class="lock-status-tag" id="lock-tag-water">🔒 Locked</div>
+            </div>
+
+            <div class="badge-card" id="badge-plastic">
+                <div class="badge-image-frame">
+                    <img src="plastic-icon.png" alt="Plastic Reducer">
+                </div>
+                <h4>Plastic Reducer</h4>
+                <p>Complete 1 Plastic task</p>
+                <div class="lock-status-tag" id="lock-tag-plastic">🔒 Locked</div>
+            </div>
+        </section>
+
+        <div class="controls-row">
+            <a href="progress.html" class="btn-return">Back to Progress</a>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const categoryBadgeMap = {
+                air: { cardId: "badge-air", tagId: "lock-tag-air" },
+                energy: { cardId: "badge-energy", tagId: "lock-tag-energy" },
+                nature: { cardId: "badge-nature", tagId: "lock-tag-nature" },
+                plastic: { cardId: "badge-plastic", tagId: "lock-tag-plastic" },
+                water: { cardId: "badge-water", tagId: "lock-tag-water" }
+            };
+
+            let totalUnlockedCount = 0;
+            const totalCategories = Object.keys(categoryBadgeMap).length;
+
+            Object.keys(categoryBadgeMap).forEach(key => {
+                const statusFlag = localStorage.getItem(key + "_completed");
+                
+                if (statusFlag === "true") {
+                    totalUnlockedCount++;
+                    
+                    const targetCard = document.getElementById(categoryBadgeMap[key].cardId);
+                    if (targetCard) targetCard.classList.add("unlocked");
+
+                    const targetTag = document.getElementById(categoryBadgeMap[key].tagId);
+                    if (targetTag) targetTag.textContent = "✓ Unlocked";
+                }
+            });
+
+            const progressPercent = (totalUnlockedCount / totalCategories) * 100;
+            document.getElementById("completion-progress-fill").style.width = progressPercent + "%";
+            document.getElementById("completion-counter-label").textContent = `${totalUnlockedCount}/${totalCategories} Badges Unlocked`;
+        });
+    </script>
+</body>
+</html>

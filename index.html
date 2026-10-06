@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ActaTerra | Climate Action Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .logo a {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1.1;
+            text-decoration: none;
+            color: inherit;
+        }
+        .logo .brand-title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            color: #000000;
+        }
+        .logo .brand-subtitle {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #333333;
+            margin-top: 2px;
+        }
+
+        .hero-banner {
+            text-align: center;
+            padding: 60px 20px 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .sdg-badge-pill {
+            display: inline-block;
+            border: 2px solid #000000;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            background: #ffffff;
+            margin-bottom: 20px;
+        }
+        .hero-banner h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin: 0 0 15px 0;
+            color: #000000;
+        }
+        .hero-banner p {
+            font-size: 1.1rem;
+            color: #444444;
+            margin: 0;
+            font-weight: 500;
+        }
+        .hub-interactive-card {
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 760px;
+            margin: 20px auto 50px auto;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.02);
+            text-align: center;
+        }
+        .hub-interactive-card h2 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 25px 0;
+        }
+        .grid-categories-row {
+            background: #e3e7f5;
+            border-radius: 16px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        @media (max-width: 650px) {
+            .grid-categories-row {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        .category-grid-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: inherit;
+        }
+        .category-grid-item .icon-wrapper {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .category-grid-item .icon-wrapper img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .category-grid-item span {
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        .btn-action-hub {
+            display: inline-block;
+            text-decoration: none;
+            border: 2px solid #000000;
+            background: #ffffff;
+            color: #000000;
+            padding: 12px 32px;
+            font-weight: bold;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+        .btn-action-hub:hover {
+            background: #000000;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <span class="brand-title">ACTATERRA</span>
+                <span class="brand-subtitle">Climate Action</span>
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="tasks.html?cat=random">Tasks</a></li>
+                <li><a href="progress.html">Progress</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="sdg13.html" class="sdg-nav">SDG13</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main style="padding: 0 20px;">
+        <section class="hero-banner">
+            <div class="sdg-badge-pill">SDG 13: Climate Action</div>
+            <h1>Small actions today,<br>big impact tomorrow.</h1>
+            <p>Daily actions. Real change. Let's build a cleaner, safer planet together.</p>
+        </section>
+
+        <section class="hub-interactive-card">
+            <h2>Take Your Climate Action Today.</h2>
+            <div class="grid-categories-row">
+                <a href="tasks.html?cat=air" class="category-grid-item">
+                    <div class="icon-wrapper"><img src="air-icon.png" alt="Air"></div>
+                    <span>Air</span>
+                </a>
+                <a href="tasks.html?cat=water" class="category-grid-item">
+                    <div class="icon-wrapper"><img src="water-icon.png" alt="Water"></div>
+                    <span>Water</span>
+                </a>
+                <a href="tasks.html?cat=nature" class="category-grid-item">
+                    <div class="icon-wrapper"><img src="nature-icon.png" alt="Nature"></div>
+                    <span>Nature</span>
+                </a>
+                <a href="tasks.html?cat=energy" class="category-grid-item">
+                    <div class="icon-wrapper"><img src="energy-icon.png" alt="Energy"></div>
+                    <span>Energy</span>
+                </a>
+                <a href="tasks.html?cat=plastic" class="category-grid-item">
+                    <div class="icon-wrapper"><img src="plastic-icon.png" alt="Plastic"></div>
+                    <span>Plastic</span>
+                </a>
+            </div>
+            <a href="tasks.html?cat=random" class="btn-action-hub">Show my daily challenge →</a>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories | ActaTerra</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .logo a {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1.1;
+            text-decoration: none;
+            color: inherit;
+        }
+        .logo .brand-title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            color: #000000;
+        }
+        .logo .brand-subtitle {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #333333;
+            margin-top: 2px;
+        }
+
+        .categories-wrapper {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .categories-grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .portal-category-card {
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 24px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.02);
+        }
+        
+        .portal-category-card.surprise-card {
+            background: #e3e7f5;
+        }
+        
+        .card-graphic-container {
+            border: 2px solid #000000;
+            border-radius: 16px;
+            height: 160px;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        .card-graphic-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .portal-category-card h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin: 5px 0 0 0;
+            color: #000000;
+        }
+        .impact-badge-row {
+            display: flex;
+            align-items: center;
+        }
+        .impact-badge {
+            border: 1.5px solid #000000;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 3px 12px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            background: #fafafa;
+        }
+        .portal-category-card p {
+            font-size: 0.88rem;
+            line-height: 1.5;
+            color: #555555;
+            margin: 0;
+            flex-grow: 1;
+        }
+        .btn-card-redirect {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            border: 2px solid #000000;
+            border-radius: 20px;
+            padding: 10px 20px;
+            color: #000000;
+            font-weight: bold;
+            font-size: 0.9rem;
+            background: #ffffff;
+            transition: all 0.2s ease;
+        }
+        .btn-card-redirect:hover {
+            background: #000000;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <span class="brand-title">ACTATERRA</span>
+                <span class="brand-subtitle">Climate Action</span>
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="categories.html" class="active">Categories</a></li>
+                <li><a href="tasks.html?cat=random">Tasks</a></li>
+                <li><a href="progress.html">Progress</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="sdg13.html" class="sdg-nav">SDG13</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="categories-wrapper">
+        <div class="categories-grid-container">
+            <div class="portal-category-card">
+                <div class="card-graphic-container">
+                    <img src="air-icon.png" alt="Air Quality">
+                </div>
+                <h3>Air Quality</h3>
+                <div class="impact-badge-row">
+                    <span class="impact-badge">Impact: +0.4</span>
+                </div>
+                <p>Focus on trimming transport grid emissions, tracking physical travel shifts, and introducing clean atmospheric solutions into your community route.</p>
+                <a href="tasks.html?cat=air" class="btn-card-redirect">Explore Tasks</a>
+            </div>
+
+            <div class="portal-category-card">
+                <div class="card-graphic-container">
+                    <img src="energy-icon.png" alt="Energy Savings">
+                </div>
+                <h3>Energy Savings</h3>
+                <div class="impact-badge-row">
+                    <span class="impact-badge">Impact: +0.4</span>
+                </div>
+                <p>Mitigate grid strain, reduce vampire standby electricity draws, and improve appliance use efficiency routines at home or work.</p>
+                <a href="tasks.html?cat=energy" class="btn-card-redirect">Explore Tasks</a>
+            </div>
+
+            <div class="portal-category-card">
+                <div class="card-graphic-container">
+                    <img src="nature-icon.png" alt="Nature & Bio">
+                </div>
+                <h3>Nature & Bio</h3>
+                <div class="impact-badge-row">
+                    <span class="impact-badge">Impact: +0.3</span>
+                </div>
+                <p>Nurture urban biodiversity clusters, safely manage soil erosion states, and support organic growth initiatives locally.</p>
+                <a href="tasks.html?cat=nature" class="btn-card-redirect">Explore Tasks</a>
+            </div>
+
+            <div class="portal-category-card">
+                <div class="card-graphic-container">
+                    <img src="plastic-icon.png" alt="Plastic Free">
+                </div>
+                <h3>Plastic Free</h3>
+                <div class="impact-badge-row">
+                    <span class="impact-badge">Impact: +0.2</span>
+                </div>
+                <p>Safeguard environments from single-use synthetic polymers, correctly isolate recycling items, and eliminate local waste pileups.</p>
+                <a href="tasks.html?cat=plastic" class="btn-card-redirect">Explore Tasks</a>
+            </div>
+
+            <div class="portal-category-card">
+                <div class="card-graphic-container">
+                    <img src="water-icon.png" alt="Water Security">
+                </div>
+                <h3>Water Security</h3>
+                <div class="impact-badge-row">
+                    <span class="impact-badge">Impact: +0.1</span>
+                </div>
+                <p>Minimize household supply drain, inspect utility distribution networks, and curb unnecessary water filtering energy usage.</p>
+                <a href="tasks.html?cat=water" class="btn-card-redirect">Explore Tasks</a>
+            </div>
+
+            <div class="portal-category-card surprise-card">
+                <div class="card-graphic-container">
+                    <div style="font-size: 4rem;">🎲</div>
+                </div>
+                <h3>Surprise Me!</h3>
+                <div class="impact-badge-row">
+                    <span class="impact-badge" style="background: #000; color: #fff;">Impact: Random</span>
+                </div>
+                <p>Can't decide which area to focus on today? Let fate choose a random daily action challenge across our sustainability sectors.</p>
+                <a href="tasks.html?cat=random" class="btn-card-redirect" style="background: #000; color: #fff;">Roll the Dice →</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

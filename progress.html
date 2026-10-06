@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Progress | ActaTerra</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let completedTasks = parseInt(localStorage.getItem("completedTasks")) || 0;
+            const currentStreak = localStorage.getItem("currentStreak") || 0;
+            const totalImpact = localStorage.getItem("totalImpact") || "0.0";
+
+            if (completedTasks > 31) {
+                completedTasks = 31;
+                localStorage.setItem("completedTasks", 31);
+            }
+
+            const streakElement = document.querySelector(".progress-block-card:nth-child(1) .number");
+            const fractionElement = document.querySelector(".counter-fraction-text");
+            const impactElement = document.querySelector(".progress-block-card:nth-child(3) .number");
+            const progressBarFill = document.querySelector(".wf-progress-bar .fill");
+
+            if (streakElement) streakElement.textContent = `${currentStreak} Days`;
+            if (impactElement) impactElement.textContent = `${totalImpact} kg`;
+            if (fractionElement) fractionElement.textContent = `${completedTasks}/31 Tasks completed`;
+
+            if (progressBarFill) {
+                const percentage = Math.min((completedTasks / 31) * 100, 100);
+                progressBarFill.style.width = percentage + "%";
+            }
+
+            const ecoTips = [
+                {
+                    icon: "🌲",
+                    title: "Nature Tip",
+                    text: "Trees act as natural air filters and help reduce global climate change footprint metrics."
+                },
+                {
+                    icon: "💧",
+                    title: "Water Tip",
+                    text: "Turning off the tap while brushing saves up to 8 gallons of clean water per minute."
+                },
+                {
+                    icon: "🔌",
+                    title: "Energy Tip",
+                    text: "Unplugging standby electronics can reduce average household energy bill usage by up to 10%."
+                }
+            ];
+
+            let currentTipIndex = 0;
+            const tipIconNode = document.querySelector(".image-icon-glyph");
+            const tipTextNode = document.querySelector(".eco-tip-body-text p");
+            const dots = document.querySelectorAll(".dot");
+
+            if (tipIconNode && tipTextNode) {
+                updateTipDisplay(currentTipIndex);
+            }
+
+            function updateTipDisplay(index) {
+                if(!tipIconNode || !tipTextNode) return;
+                
+                tipIconNode.innerHTML = ecoTips[index].icon;
+                tipTextNode.innerHTML = `<strong>Did you know? (${ecoTips[index].title})</strong> <br>${ecoTips[index].text}`;
+                
+                dots.forEach((dot, idx) => {
+                    if (idx === index) {
+                        dot.classList.add("active");
+                    } else {
+                        dot.classList.remove("active");
+                    }
+                });
+            }
+
+            dots.forEach((dot, index) => {
+                dot.style.cursor = "pointer"; 
+                dot.addEventListener("click", function() {
+                    currentTipIndex = index;
+                    updateTipDisplay(currentTipIndex);
+                });
+            });
+
+            setInterval(() => {
+                currentTipIndex = (currentTipIndex + 1) % ecoTips.length;
+                updateTipDisplay(currentTipIndex);
+            }, 3000);
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span style="display: block; font-weight: 900; font-size: 1.5rem; letter-spacing: 0.5px;">ACTATERRA</span>
+            <span style="display: block; font-weight: 700; font-size: 0.9rem; color: #333; margin-top: -2px;">Climate Action</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="tasks.html">Tasks</a></li>
+                <li><a href="progress.html" class="active">Progress</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="sdg13.html" class="sdg-nav">SDG13</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="dashboard-container">
+        <section class="wf-stats-grid-triple">
+            <div class="progress-block-card">
+                <h3>YOUR STREAK</h3>
+                <div class="big-metric-display">
+                    <span class="metric-glyph flame-orange">&#x1F525;</span>
+                    <div class="metric-values">
+                        <span class="number">0 Days</span>
+                        <p class="sub-label-caption">Keep it going!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-block-card">
+                <h3>MONTHLY PROGRESS</h3>
+                <p class="sub-label-caption text-dark-bold">Great job! You're making an impact.</p>
+                <div class="wf-progress-bar margin-v-15">
+                    <div class="fill" style="width: 0%;"></div>
+                </div>
+                <p class="counter-fraction-text">0/31 Tasks completed</p>
+            </div>
+
+            <div class="progress-block-card">
+                <h3>TOTAL IMPACT</h3>
+                <div class="big-metric-display">
+                    <span class="metric-glyph globe-blue">&#x1F310;</span>
+                    <div class="metric-values">
+                        <span class="number">0.0 kg</span>
+                        <p class="sub-label-caption text-dark-bold">CO2 reduced</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="wf-details-grid-split">
+            <div class="progress-block-card">
+                <h3><span class="inline-header-icon">&#x1F4A1;</span> ECO TIPS</h3>
+                <div class="eco-tip-flex-layout">
+                    <div class="wireframe-photo-placeholder">
+                        <span class="image-icon-glyph">&#x1F332;</span>
+                        <div class="dot-indicators">
+                            <span class="dot active"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="eco-tip-body-text">
+                        <p><strong>Did you know?</strong> <br>Trees act as natural air filters and help reduce climate change.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-block-card text-center-adaptive">
+                <h3>YOUR BADGES</h3>
+                <div class="wireframe-badges-row">
+                    <div class="badge-item-icon">
+                        <img src="air-icon.png" alt="Air Helper">
+                        <span>Air Helper</span>
+                    </div>  
+                    <div class="badge-item-icon">
+                        <img src="energy-icon.png" alt="Energy Saver">
+                        <span>Energy Saver</span>
+                    </div>
+                    <div class="badge-item-icon">
+                        <img src="water-icon.png" alt="Water Guardian">
+                        <span>Water Guardian</span>
+                    </div>
+                </div>
+                <a href="badges.html" class="btn-wireframe-pill inline-center-btn" style="text-decoration: none; display: inline-block;">View all badges</a>
+            </div>
+        </section>
+
+        <div class="footer-action-return-row">
+            <a href="index.html" class="btn-wireframe-pill minor-btn">Return</a>
+        </div>
+    </main>
+</body>
+</html>

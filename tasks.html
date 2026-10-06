@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's Task | ActaTerra</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .logo a {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1.1;
+            text-decoration: none;
+            color: inherit;
+        }
+        .logo .brand-title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            color: #000000;
+        }
+        .logo .brand-subtitle {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #333333;
+            margin-top: 2px;
+        }
+
+        .task-detail-card {
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 24px;
+            padding: 35px;
+            display: grid;
+            grid-template-columns: 1.2fr 1.5fr 1.3fr;
+            gap: 30px;
+            margin-top: 20px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.02);
+        }
+        @media (max-width: 900px) {
+            .task-detail-card {
+                grid-template-columns: 1fr;
+            }
+        }
+        .task-main-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 15px;
+        }
+        .task-title-block {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .task-image-display {
+            width: 90px;
+            height: 90px;
+            border: 2px solid #000000;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            box-sizing: border-box;
+        }
+        .task-image-display img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .task-title-block h3 {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin: 0;
+            color: #555;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .task-title-block h2 {
+            font-size: 1.8rem;
+            margin: 5px 0 0 0;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .task-title-block p {
+            margin: 8px 0 0 0;
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.4;
+        }
+        .why-it-matters-box {
+            border: 2px solid #000000;
+            border-radius: 16px;
+            padding: 18px;
+            background: #fafafa;
+            margin-top: 15px;
+        }
+        .why-it-matters-box h4 {
+            margin: 0 0 8px 0;
+            font-size: 1rem;
+            font-weight: 800;
+        }
+        .why-it-matters-box p {
+            margin: 0;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #333;
+        }
+        .suggested-actions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .suggested-actions-container h3 {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin: 0 0 5px 0;
+            font-weight: bold;
+        }
+        .action-checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: #fff;
+            transition: background 0.2s ease;
+            cursor: pointer;
+        }
+        .action-checkbox-item:hover {
+            background: #fdfdfd;
+        }
+        .action-checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #000000;
+            margin: 0;
+        }
+        .action-checkbox-item label {
+            cursor: pointer;
+            width: 100%;
+            line-height: 1.3;
+        }
+        .impact-preview-container {
+            border: 2px solid #000000;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            height: fit-content;
+            background: #fff;
+        }
+        .impact-preview-container h3 {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin: 0;
+            font-weight: bold;
+        }
+        .impact-preview-container p {
+            font-size: 0.85rem;
+            color: #666;
+            margin: -5px 0 5px 0;
+        }
+        .metric-progress-row {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .metric-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .mini-progress-bar {
+            background: #e0e0e0;
+            border: 2px solid #000000;
+            height: 14px;
+            border-radius: 7px;
+            overflow: hidden;
+        }
+        .mini-progress-bar .fill-bar {
+            background: #757575;
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .task-action-controls-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+        }
+        .action-buttons-right {
+            display: flex;
+            gap: 15px;
+        }
+        .btn-action-trigger {
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: 2px solid #000000;
+            transition: all 0.2s ease;
+        }
+        .btn-submit-task {
+            background: #a8e6cf; 
+            color: #000000;
+        }
+        .btn-submit-task:hover {
+            background: #8cd1b7;
+        }
+        .btn-skip-task {
+            background: #ffffff;
+            color: #000000;
+        }
+        .btn-skip-task:hover {
+            background: #f5f5f5;
+        }
+        .flash-success {
+            background-color: #e2fbd7 !important;
+            color: #34a853 !important;
+            border-color: #34a853 !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <span class="brand-title">ACTATERRA</span>
+                <span class="brand-subtitle">Climate Action</span>
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="tasks.html?cat=random" class="active">Tasks</a></li>
+                <li><a href="progress.html">Progress</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="sdg13.html" class="sdg-nav">SDG13</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="dashboard-container" style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+        <div style="font-size: 0.9rem; font-weight: bold; color: #555; margin-bottom: 15px; display: flex; align-items: center; gap: 6px;">
+            📅 TODAY'S TASK
+        </div>
+
+        <section class="task-detail-card" id="dynamic-task-card" data-impact="0.2">
+            <div class="task-main-info">
+                <div class="task-title-block">
+                    <div class="task-image-display">
+                        <img id="task-graphic-img" src="water-icon.png" alt="Category Icon">
+                    </div>
+                    <div>
+                        <h3 id="task-category-label">WATER TASK</h3>
+                        <h2 id="task-headline">Loading task...</h2>
+                        <p id="task-subtext">Optimizing requirements layout structures...</p>
+                    </div>
+                </div>
+                
+                <div class="why-it-matters-box">
+                    <h4>Why it matters</h4>
+                    <p id="task-why-text">...</p>
+                </div>
+            </div>
+
+            <div class="suggested-actions-container">
+                <h3>SUGGESTED ACTIONS</h3>
+                <div id="checkbox-stack-container"></div>
+            </div>
+
+            <div class="impact-preview-container">
+                <h3>IMPACT PREVIEW</h3>
+                <p>By completing this task, you help reduce:</p>
+                
+                <div class="metric-progress-row">
+                    <div class="metric-label" id="metric-label-1">Loading Metric</div>
+                    <div class="mini-progress-bar">
+                        <div class="fill-bar" id="bar-1" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <div class="metric-progress-row">
+                    <div class="metric-label" id="metric-label-2">Loading Metric</div>
+                    <div class="mini-progress-bar">
+                        <div class="fill-bar" id="bar-2" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="task-action-controls-row">
+            <a href="categories.html" class="btn-wireframe-pill minor-btn" style="text-decoration: none; padding: 12px 24px; border: 2px solid #000000; border-radius: 25px; color: #000; font-weight: bold; font-size: 0.95rem; transition: background 0.2s;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background='none'">Return</a>
+            <div class="action-buttons-right">
+                <button class="btn-action-trigger btn-skip-task" onclick="resetCheckboxes()">Clear Choices</button>
+                <button class="btn-action-trigger btn-submit-task" id="main-submit-btn" onclick="executeTaskCompletion()">✓ Mark as Completed</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const categoryData = {
+            air: {
+                label: "AIR TASK",
+                imageFile: "air-icon.png",
+                headline: "Walk or bike short distances.",
+                subtext: "Leave the car behind for trips under two miles to clear vehicle emissions.",
+                why: "Combustion transport systems account for a primary portion of real-time greenhouse atmosphere concentrations.",
+                impact: 0.4,
+                metrics: ["💨 Greenhouse Gases", "☁️ Air Pollution"],
+                actions: [
+                    "Walk to nearby grocery stores or local neighborhood points.",
+                    "Ride a bike or clean scooter for mid-range daily errands.",
+                    "Utilize regional public transit lines like buses or trains.",
+                    "Plan your driving errands into unified single-trip clusters.",
+                    "Check and fill car tires to optimal levels to increase fuel economy."
+                ]
+            },
+            energy: {
+                label: "ENERGY TASK",
+                imageFile: "energy-icon.png",
+                headline: "Unplug standby devices.",
+                subtext: "Phantom loads pull power 24/7. Cut the cord on standby use.",
+                why: "Fossil generation grids respond directly to real-time baseline appliance power requirements.",
+                impact: 0.4,
+                metrics: ["⚡ Grid Overconsumption", "🔋 Energy Waste"],
+                actions: [
+                    "Disconnect brick charging cords when not plugged into a phone.",
+                    "Switch off room lights and fans immediately when leaving.",
+                    "Unplug unused desk appliances like monitors and printers.",
+                    "Use natural sunlight during afternoon daytime hours.",
+                    "Set your air conditioner or cooling units to an eco-friendly mode."
+                ]
+            },
+            nature: {
+                label: "NATURE TASK",
+                imageFile: "nature-icon.png",
+                headline: "Water local plants or plant a seed.",
+                subtext: "Support urban flora to improve local carbon absorption rates.",
+                why: "Green spaces act as natural temperature controls and preserve local biodiversity hubs.",
+                impact: 0.3,
+                metrics: ["🌱 Soil Erosion", "🐾 Habitat Loss"],
+                actions: [
+                    "Water indoor or neighborhood community plants.",
+                    "Avoid pulling healthy green vegetation or leaves unnecessarily.",
+                    "Plant a seed or nurture a seedling in a small pot.",
+                    "Pick up littered trash found inside a local green park space.",
+                    "Learn about and support native plant types in your area."
+                ]
+            },
+            plastic: {
+                label: "PLASTIC TASK",
+                imageFile: "plastic-icon.png",
+                headline: "Say no to plastic bags.",
+                subtext: "Use eco-tote bags or paper variations for grocery items today.",
+                why: "Single-use polymers stay inside environmental landfills and break down into dangerous microplastics.",
+                impact: 0.2,
+                metrics: ["♻️ Microplastic Pollution", "🗑️ Landfill Waste"],
+                actions: [
+                    "Bring custom canvas carriers or eco-tote bags when shopping.",
+                    "Refuse disposable plastic straw attachments for drinks.",
+                    "Carry a refillable water bottle instead of buying single-use plastic.",
+                    "Choose items packaged in glass, cardboard, or aluminum instead.",
+                    "Sort and separate recyclable plastics properly at home."
+                ]
+            },
+            water: {
+                label: "WATER TASK",
+                imageFile: "water-icon.png",
+                headline: "Turn off the tap while brushing.",
+                subtext: "Save running fresh water and cut down on waste processing electricity.",
+                why: "Clean treated water requires extensive electrical grid energy to pump, filter, and transport to your location.",
+                impact: 0.1,
+                metrics: ["💧 Water Waste", "☁️ Carbon Footprint"],
+                actions: [
+                    "Use a reusable cup for rinsing out your mouth.",
+                    "Check and fix leaky house or bathroom faucets.",
+                    "Take shorter showers aimed under 5 minutes total.",
+                    "Only run laundry machines or dishwashers when completely full.",
+                    "Collect rainwater to use for watering outdoor gardens later."
+                ]
+            }
+        };
+
+        let currentCategory = "water";
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let catParam = urlParams.get('cat');
+
+            if (catParam === 'random' || !catParam || !categoryData[catParam]) {
+                const keys = Object.keys(categoryData);
+                catParam = keys[Math.floor(Math.random() * keys.length)];
+            }
+
+            currentCategory = catParam;
+            renderCategoryContent(currentCategory);
+        });
+
+        function renderCategoryContent(categoryKey) {
+            const data = categoryData[categoryKey];
+            const card = document.getElementById("dynamic-task-card");
+
+            card.setAttribute("data-impact", data.impact);
+            
+            const graphicImg = document.getElementById("task-graphic-img");
+            graphicImg.src = data.imageFile;
+            graphicImg.alt = data.label;
+
+            document.getElementById("task-category-label").textContent = data.label;
+            document.getElementById("task-headline").textContent = data.headline;
+            document.getElementById("task-subtext").textContent = data.subtext;
+            document.getElementById("task-why-text").textContent = data.why;
+            
+            document.getElementById("metric-label-1").textContent = data.metrics[0];
+            document.getElementById("metric-label-2").textContent = data.metrics[1];
+
+            const container = document.getElementById("checkbox-stack-container");
+            container.innerHTML = "";
+            
+            data.actions.forEach((actionText, index) => {
+                const div = document.createElement("div");
+                div.className = "action-checkbox-item";
+                div.innerHTML = `
+                    <input type="checkbox" id="act${index}" onchange="updateImpactPreview()">
+                    <label for="act${index}">${actionText}</label>
+                `;
+                container.appendChild(div);
+            });
+
+            const savedStates = JSON.parse(localStorage.getItem("presentation_checkboxes_" + categoryKey));
+            if (savedStates) {
+                const checkboxes = document.querySelectorAll(".action-checkbox-item input");
+                checkboxes.forEach((box, idx) => {
+                    if (box && savedStates[idx] !== undefined) {
+                        box.checked = savedStates[idx];
+                    }
+                });
+            }
+            updateImpactPreview();
+        }
+
+        function updateImpactPreview() {
+            const checkboxes = document.querySelectorAll(".action-checkbox-item input[type='checkbox']");
+            let checkedCount = 0;
+            const checkboxStates = [];
+            
+            checkboxes.forEach((box) => { 
+                if(box.checked) checkedCount++;
+                checkboxStates.push(box.checked);
+            });
+
+            localStorage.setItem("presentation_checkboxes_" + currentCategory, JSON.stringify(checkboxStates));
+
+            const percentage = checkboxes.length ? (checkedCount / checkboxes.length) * 100 : 0;
+            document.getElementById("bar-1").style.width = (percentage * 0.95) + "%"; 
+            document.getElementById("bar-2").style.width = (percentage * 0.85) + "%";
+        }
+
+        function executeTaskCompletion() {
+            const card = document.getElementById("dynamic-task-card");
+            
+            const checkboxes = document.querySelectorAll(".action-checkbox-item input[type='checkbox']");
+            let checkedCount = 0;
+            checkboxes.forEach(box => {
+                if (box.checked) checkedCount++;
+            });
+
+            if (checkedCount === 0) {
+                alert("Please select at least one action before marking as completed!");
+                return;
+            }
+
+            const taskImpactPerAction = parseFloat(card.getAttribute("data-impact")) || 0.1;
+
+            let completedTasks = parseInt(localStorage.getItem("completedTasks")) || 0;
+            let totalImpact = parseFloat(localStorage.getItem("totalImpact")) || 0.0;
+            let currentStreak = parseInt(localStorage.getItem("currentStreak")) || 0;
+
+            completedTasks += checkedCount;
+            totalImpact += (taskImpactPerAction * checkedCount);
+            if (currentStreak === 0) currentStreak = 1;
+
+            localStorage.setItem("completedTasks", completedTasks);
+            localStorage.setItem("totalImpact", totalImpact.toFixed(1));
+            localStorage.setItem("currentStreak", currentStreak);
+
+            localStorage.setItem(currentCategory + "_completed", "true");
+
+            const submitBtn = document.getElementById("main-submit-btn");
+            submitBtn.textContent = `✓ Added ${checkedCount} to Progress!`;
+            submitBtn.classList.add("flash-success");
+
+            setTimeout(() => {
+                submitBtn.textContent = "✓ Mark as Completed";
+                submitBtn.classList.remove("flash-success");
+                window.location.href = "progress.html";
+            }, 1000);
+        }
+
+        function resetCheckboxes() {
+            document.querySelectorAll(".action-checkbox-item input").forEach(box => box.checked = false);
+            localStorage.removeItem("presentation_checkboxes_" + currentCategory);
+            updateImpactPreview();
+        }
+    </script>
+</body>
+</html>

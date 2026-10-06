@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's Task | ActaTerra</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const completeBtn = document.querySelector(".success-btn");
+            const skipBtn = document.querySelector(".air-skip-btn");
+
+            if (completeBtn) {
+                completeBtn.addEventListener("click", function() {
+                    let completedTasks = parseInt(localStorage.getItem("completedTasks")) || 0;
+                    let currentStreak = parseInt(localStorage.getItem("currentStreak")) || 0;
+                    let totalImpact = parseFloat(localStorage.getItem("totalImpact")) || 0.0;
+
+                    if (completedTasks < 31) {
+                        completedTasks += 1;
+                    }
+                    
+                    currentStreak += 1;
+                    totalImpact += 0.2;
+
+                    localStorage.setItem("completedTasks", completedTasks);
+                    localStorage.setItem("currentStreak", currentStreak);
+                    localStorage.setItem("totalImpact", totalImpact.toFixed(1));
+
+                    alert("Air task tracked successfully!");
+                    window.location.href = "progress.html";
+                });
+            }
+
+            if (skipBtn) {
+                skipBtn.addEventListener("click", function() {
+                    localStorage.setItem("currentStreak", 0);
+                    alert("Task skipped. Returning to categories.");
+                    window.location.href = "categories.html";
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="ActaTerra Logo">
+            <span>ACTATERRA <small>Climate Action</small></span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="tasks.html" class="active">Tasks</a></li>
+                <li><a href="progress.html">Progress</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="sdg13.html" class="sdg-nav">SDG13</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="task-viewer-container">
+        <div class="task-date-badge">
+            <span class="calendar-icon">&#x1F4C5;</span> 
+            <strong>TODAY'S TASK</strong> <span class="muted-date">&bull; April 26, 2026</span>
+        </div>
+
+        <section class="wireframe-split-task-panel">
+            <div class="task-main-info-column">
+                <div class="task-title-header">
+                    <img src="air-icon.jpg" alt="Air Icon" class="task-header-glyph">
+                    <div>
+                        <h2>AIR TASK</h2>
+                        <p class="headline-action">Avoid burning waste today.</p>
+                        <p class="sub-action-text">Open burning releases harmful pollutants. Choose a cleaner way!</p>
+                    </div>
+                </div>
+
+                <div class="why-it-matters-box">
+                    <h4>Why it matters</h4>
+                    <p>Burning waste contributes to air pollution, climate change, and serious respiratory health problems.</p>
+                </div>
+            </div>
+
+            <div class="task-actions-checklist-column">
+                <h4>SUGGESTED ACTIONS</h4>
+                <div class="wireframe-checklist-stack">
+                    <label class="action-check-row">
+                        <input type="checkbox">
+                        <span class="custom-lbl-txt">Walk or bike instead of using motorized transport.</span>
+                    </label>
+                    <label class="action-check-row">
+                        <input type="checkbox">
+                        <span class="custom-lbl-txt">Keep indoor or outdoor plants around you.</span>
+                    </label>
+                    <label class="action-check-row">
+                        <input type="checkbox">
+                        <span class="custom-lbl-txt">Avoid burning leaves, plastic, or household trash.</span>
+                    </label>
+                    <label class="action-check-row">
+                        <input type="checkbox">
+                        <span class="custom-lbl-txt">Share clean air tips with a friend or family member.</span>
+                    </label>
+                    <label class="action-check-row">
+                        <input type="checkbox">
+                        <span class="custom-lbl-txt">Turn off your vehicle's engine when idling or waiting.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="task-impact-preview-column">
+                <div class="impact-preview-card">
+                    <h4>IMPACT PREVIEW</h4>
+                    <p class="impact-intro">By completing this task, you help reduce:</p>
+                    
+                    <div class="metric-progress-group">
+                        <div class="metric-label-row">
+                            <span class="icon-span">&#x1F4A8;</span> CO2 Emissions
+                        </div>
+                        <div class="wf-progress-bar"><div class="fill" style="width: 80%;"></div></div>
+                    </div>
+
+                    <div class="metric-progress-group">
+                        <div class="metric-label-row">
+                            <span class="icon-span">&#x1F32B;</span> Air Pollution
+                        </div>
+                        <div class="wf-progress-bar"><div class="fill" style="width: 70%;"></div></div>
+                    </div>
+
+                    <div class="metric-progress-group">
+                        <div class="metric-label-row">
+                            <span class="icon-span">&#x2764;&#xFE0F;</span> Health Impact
+                        </div>
+                        <div class="wf-progress-bar"><div class="fill" style="width: 90%;"></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="footer-control-row">
+            <a href="categories.html" class="btn-wireframe-pill minor-btn">Return</a>
+            <div class="right-buttons">
+                <button class="btn-wireframe-pill success-btn">&#x2714; Mark as Completed</button>
+                <button class="btn-wireframe-pill air-skip-btn">Skip for today</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
